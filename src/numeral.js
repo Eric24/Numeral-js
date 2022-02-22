@@ -1,6 +1,6 @@
 /*! @preserve
  * numeral.js
- * version : 2.0.6
+ * version : 2.0.7
  * author : Adam Draper
  * license : MIT
  * http://adamwdraper.github.com/Numeral-js/
@@ -21,7 +21,7 @@
 
     var numeral,
         _,
-        VERSION = '2.0.6',
+        VERSION = '2.0.7',
         formats = {},
         locales = {},
         defaults = {
@@ -377,7 +377,7 @@
          * Fixes binary rounding issues (eg. (0.615).toFixed(2) === '0.61') that present
          * problems for accounting- and finance-related software.
          */
-        toFixed: function(value, maxDecimals, roundingFunction, optionals) {
+        toFixedORIGINAL: function(value, maxDecimals, roundingFunction, optionals) {
             var splitValue = value.toString().split('.'),
                 minDecimals = maxDecimals - (optionals || 0),
                 boundedPrecision,
@@ -403,6 +403,18 @@
             }
 
             return output;
+        },
+        toFixed: function(value, maxDecimals, roundingFunction, optionals) {
+            maxDecimals = maxDecimals || 0;
+            optionals = optionals || 0;
+
+            var options = {
+                useGrouping: false,
+                minimumFractionDigits: maxDecimals - optionals,
+                maximumFractionDigits: maxDecimals
+            };
+
+            return value.toLocaleString(numeral.locale, options);
         }
     };
 

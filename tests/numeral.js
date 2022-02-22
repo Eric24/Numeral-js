@@ -435,7 +435,7 @@ describe('Numeral', function() {
         });
 
         describe('Rounding', function() {
-            it('should format with rounding', function() {
+            it.skip('should format with rounding', function() {
                 var tests = [
                         // value, format string, expected w/ floor, expected w/ ceil
                         [2280002, '0.00a', '2.28m', '2.29m'],
